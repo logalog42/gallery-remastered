@@ -96,6 +96,9 @@ for n=1, N do
     -- Picture thickness of the node
     local pic_thickness = 0.05
 
+    pic_width = pic_width * pic_scale
+    pic_height = pic_height * pic_scale
+    
     if pic_pixwidth > pic_pixheight then
         -- Landscape picture. Set the Picture height of the node (whole picture including frame) accordingly to the original picture aspect ratio
         pic_height = (pic_width / pictexture_pix) * (pic_pixheight + 2 * (frame_widthpixel + border_pix))
@@ -125,15 +128,15 @@ for n=1, N do
             -- Box definition in following order: {x1, y1, z1, x2, y2, z2}
             fixed = {
                 -- Picture
-                {-pic_width/2.0, -0.5/pic_scale, -pic_height/2.0, pic_width/2.0, -(0.5 - pic_thickness) / pic_scale, pic_height/2.0},                   
+                {-pic_width/2.0, -0.5, -pic_height/2.0, pic_width/2.0, -(0.5 - pic_thickness) , pic_height/2.0},                   
                 -- Left frame border
-                {-pic_width/2.0, -0.5/pic_scale, -pic_height/2.0, -pic_width/2.0+frame_widthnode, -(0.5 - frame_thickness) / pic_scale, pic_height/2.0},
+                {-pic_width/2.0, -0.5, -pic_height/2.0, -pic_width/2.0+frame_widthnode, -(0.5 - frame_thickness) , pic_height/2.0},
                 -- Right frame border
-                {pic_width/2.0-frame_widthnode, -0.5/pic_scale, -pic_height/2.0, pic_width/2.0, -(0.5 - frame_thickness) / pic_scale, pic_height/2.0},
+                {pic_width/2.0-frame_widthnode, -0.5, -pic_height/2.0, pic_width/2.0, -(0.5 - frame_thickness) , pic_height/2.0},
                  -- Bottom frame border
-                {-pic_width/2.0, -0.5/pic_scale, -pic_height/2.0, pic_width/2.0, -(0.5 - frame_thickness) / pic_scale, -pic_height/2.0+frame_widthnode},
+                {-pic_width/2.0, -0.5, -pic_height/2.0, pic_width/2.0, -(0.5 - frame_thickness) , -pic_height/2.0+frame_widthnode},
                 -- Top frame border
-                {-pic_width/2.0, -0.5/pic_scale, pic_height/2.0-frame_widthnode, pic_width/2.0, -(0.5 - frame_thickness) / pic_scale, pic_height/2.0},
+                {-pic_width/2.0, -0.5, pic_height/2.0-frame_widthnode, pic_width/2.0, -(0.5 - frame_thickness) , pic_height/2.0},
             },
         },
         selection_box = {
