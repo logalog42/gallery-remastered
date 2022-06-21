@@ -17,11 +17,11 @@
 local function get_picture(number)
     local filename	= minetest.get_modpath("gallery").."/textures/picture_"..number..".png"
     local file		= io.open(filename, "r")
-    if file ~= nil then 
-        io.close(file) 
-        return true 
-    else 
-        return false 
+    if file ~= nil then
+        io.close(file)
+        return true
+    else
+        return false
     end
 end
 
@@ -38,12 +38,12 @@ local function get_pngwidthheight(number)
                 width=widthstr:sub(1,1):byte()*16777216+widthstr:sub(2,2):byte()*65536+widthstr:sub(3,3):byte()*256+widthstr:sub(4,4):byte()
                 height=heightstr:sub(1,1):byte()*16777216+heightstr:sub(2,2):byte()*65536+heightstr:sub(3,3):byte()*256+heightstr:sub(4,4):byte()
             end
-        end                
+        end
         io.close(file)
     end
     return width,height
 end
-    
+
 local N = 1
 
 while get_picture(N) == true do
@@ -55,13 +55,15 @@ N = N - 1
 -- register for each picture
 for n=1, N do
 
-    local groups = {choppy=2, dig_immediate=3, picture=1, not_in_creative_inventory=1}
-    if n == 1 then
+--    TODO allow for specific pictures to not show up in creativve inventory
+--    local groups = {choppy=2, dig_immediate=3, picture=1, not_in_creative_inventory=1}
+--    if n == 1 then
         groups = {choppy=2, dig_immediate=3, picture=1}
-    end
+--    end
 
+    --TODO Allow player to select frame texture
     -- Texture for the frame
-    local frame_texture = "metal.png"
+    local frame_texture = "wood.png"
     -- Pixel size of the resulting texture for the node. Higher resolutions for more details.
     local resulttexture_pix = 800
     -- Frame border width in percent
@@ -108,9 +110,9 @@ for n=1, N do
     minetest.register_node("gallery:node_"..n.."", {
         description = "Picture #"..n.."",
         drawtype = "nodebox",
-         -- Tile definition in the follwing order: +Y, -Y, +X, -X, +Z, -Z. 
+         -- Tile definition in the follwing order: +Y, -Y, +X, -X, +Z, -Z.
         tiles = {
-            {name="("..frame_texture.."^[resize:"..resulttexture_pix.."x"..resulttexture_pix..")^([combine:"..pictexture_pix.."x"..pictexture_pix..":"..pic_xoffset..","..pic_yoffset.."=picture_"..n..".png^[resize:"..resulttexture_pix.."x"..resulttexture_pix..")"}, 
+            {name="("..frame_texture.."^[resize:"..resulttexture_pix.."x"..resulttexture_pix..")^([combine:"..pictexture_pix.."x"..pictexture_pix..":"..pic_xoffset..","..pic_yoffset.."=picture_"..n..".png^[resize:"..resulttexture_pix.."x"..resulttexture_pix..")"},
             {name=frame_texture}
         },
         visual_scale = pic_scale,
@@ -125,7 +127,7 @@ for n=1, N do
             -- Box definition in following order: {x1, y1, z1, x2, y2, z2}
             fixed = {
                 -- Picture
-                {-pic_width/2.0, -0.5/pic_scale, -pic_height/2.0, pic_width/2.0, -(0.5 - pic_thickness) / pic_scale, pic_height/2.0},                   
+                {-pic_width/2.0, -0.5/pic_scale, -pic_height/2.0, pic_width/2.0, -(0.5 - pic_thickness) / pic_scale, pic_height/2.0},
                 -- Left frame border
                 {-pic_width/2.0, -0.5/pic_scale, -pic_height/2.0, -pic_width/2.0+frame_widthnode, -(0.5 - frame_thickness) / pic_scale, pic_height/2.0},
                 -- Right frame border
@@ -144,7 +146,7 @@ for n=1, N do
         on_rightclick = function(pos, node, clicker)
             local length = string.len (node.name)
             local number = string.sub (node.name, 14, length)
-            
+
             -- TODO. Reducing currently not working, because sneaking prevents right click.
             local keys=clicker:get_player_control()
             if keys["sneak"]==false then
@@ -179,8 +181,6 @@ for n=1, N do
             }
         })
     end
-
-    n = n + 1
 
 end
 
@@ -219,7 +219,7 @@ minetest.register_craft({
     type = 'shapeless',
     output = 'gallery:node_1 4',
     recipe = {
-        'group:picture', 'group:picture', 'group:picture', 
+        'group:picture', 'group:picture', 'group:picture',
         'group:picture'
     }
 })
@@ -228,7 +228,7 @@ minetest.register_craft({
     type = 'shapeless',
     output = 'gallery:node_1 5',
     recipe = {
-        'group:picture', 'group:picture', 'group:picture', 
+        'group:picture', 'group:picture', 'group:picture',
         'group:picture', 'group:picture'
     }
 })
@@ -237,7 +237,7 @@ minetest.register_craft({
     type = 'shapeless',
     output = 'gallery:node_1 6',
     recipe = {
-        'group:picture', 'group:picture', 'group:picture', 
+        'group:picture', 'group:picture', 'group:picture',
         'group:picture', 'group:picture', 'group:picture'
     }
 })
@@ -246,8 +246,8 @@ minetest.register_craft({
     type = 'shapeless',
     output = 'gallery:node_1 7',
     recipe = {
-        'group:picture', 'group:picture', 'group:picture', 
-        'group:picture', 'group:picture', 'group:picture', 
+        'group:picture', 'group:picture', 'group:picture',
+        'group:picture', 'group:picture', 'group:picture',
         'group:picture'
     }
 })
@@ -256,8 +256,8 @@ minetest.register_craft({
     type = 'shapeless',
     output = 'gallery:node_1 8',
     recipe = {
-        'group:picture', 'group:picture', 'group:picture', 
-        'group:picture', 'group:picture', 'group:picture', 
+        'group:picture', 'group:picture', 'group:picture',
+        'group:picture', 'group:picture', 'group:picture',
         'group:picture', 'group:picture'
     }
 })
@@ -266,8 +266,8 @@ minetest.register_craft({
     type = 'shapeless',
     output = 'gallery:node_1 9',
     recipe = {
-        'group:picture', 'group:picture', 'group:picture', 
-        'group:picture', 'group:picture', 'group:picture', 
+        'group:picture', 'group:picture', 'group:picture',
+        'group:picture', 'group:picture', 'group:picture',
         'group:picture', 'group:picture', 'group:picture'
     }
 })
